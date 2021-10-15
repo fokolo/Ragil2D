@@ -1,0 +1,41 @@
+package main
+
+import (
+	"fmt"
+
+	"github.com/veandco/go-sdl2/img"
+	"github.com/veandco/go-sdl2/sdl"
+)
+
+const (
+	spriteWidth = 319
+	spriteHeight = 486
+)
+
+type player struct {
+	tex *sdl.Texture
+	scale int32
+}
+
+
+func newPlayer(renderer *sdl.Renderer) (p player, err error) {
+	img, err := img.Load("sprites/TempleRun/Idle__000.png")
+	if err != nil {
+		return player{}, fmt.Errorf("loading player sprite: %v", err)
+	}
+	defer img.Free()
+	p.tex, err = renderer.CreateTextureFromSurface(img)
+	if err != nil {
+		return player{}, fmt.Errorf("creating player texture: %v", err)
+	}
+
+	p.scale = 5
+
+	return p, nil
+}
+
+func (p *player) draw(renderer *sdl.Renderer) {
+	renderer.Copy(p.tex,
+		&sdl.Rect{X: 0, Y: 0, W: spriteWidth, H: spriteHeight},
+		&sdl.Rect{X: 40, Y: 20, W: spriteWidth/p.scale, H: spriteHeight/p.scale})
+}
