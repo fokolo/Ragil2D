@@ -1,7 +1,11 @@
 # Ragil2D
-Ragil2D Game. Made in Jam.
+
+Ragil2D Game.
 
 ## Useful links
-* https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
-* https://developer.mozilla.org/en-US/docs/Games/Introduction#Web_technologies_for_game_developers
-* https://codeincomplete.com/games/
+
+Game in Go.
+
+using sdl and sdl-go
+https://github.com/veandco/go-sdl2#documentation
+https://github.com/velovix/gaming-in-go
