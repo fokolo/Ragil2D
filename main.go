@@ -41,6 +41,7 @@ func main() {
 		return
 	}
 
+	plr.setLocation(700, 500)
 	for {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch event.(type) {

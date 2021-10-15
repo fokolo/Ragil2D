@@ -15,6 +15,8 @@ const (
 type player struct {
 	tex *sdl.Texture
 	scale int32
+	x int32
+	y int32
 }
 
 
@@ -34,8 +36,13 @@ func newPlayer(renderer *sdl.Renderer) (p player, err error) {
 	return p, nil
 }
 
+func (p *player) setLocation(x int32, y int32) {
+	p.x = x
+	p.y = y
+}
+
 func (p *player) draw(renderer *sdl.Renderer) {
 	renderer.Copy(p.tex,
 		&sdl.Rect{X: 0, Y: 0, W: spriteWidth, H: spriteHeight},
-		&sdl.Rect{X: 40, Y: 20, W: spriteWidth/p.scale, H: spriteHeight/p.scale})
+		&sdl.Rect{X: p.x, Y: p.y, W: spriteWidth/p.scale, H: spriteHeight/p.scale})
 }
