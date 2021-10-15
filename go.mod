@@ -1,4 +1,4 @@
-module game
+module ragil2d
 
 go 1.17
 
