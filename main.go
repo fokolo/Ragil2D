@@ -35,13 +35,11 @@ func main() {
 	}
 	defer renderer.Destroy()
 
-	plr, err := newPlayer(renderer)
-	if err != nil {
-		fmt.Println("creating player:", err)
-		return
-	}
+	var elements []*element
 
-	plr.setLocation(700, 500)
+	plr := newPlayer(renderer)
+	elements = append(elements, plr)
+
 	for {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch event.(type) {
@@ -53,8 +51,20 @@ func main() {
 		renderer.SetDrawColor(255, 255, 255, 255)
 		renderer.Clear()
 
-		plr.draw(renderer)
-
+		for _, element := range(elements) {
+			if element.active {
+				err = element.update()
+				if err != nil {
+					fmt.Println("Error: updating element:", err)
+					return
+				}
+				err = element.draw(renderer)
+				if err != nil {
+					fmt.Println("Error: drawing element:", err)
+					return
+				}
+			}
+		}
 		renderer.Present()
 	}
 }
