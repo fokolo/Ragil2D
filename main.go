@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/veandco/go-sdl2/sdl"
 )
@@ -9,6 +10,8 @@ import (
 const (
 	screenWidth  = 800
 	screenHeight = 600
+
+	framePerSeconds = 60
 )
 
 func main() {
@@ -40,7 +43,9 @@ func main() {
 	plr := newPlayer(renderer)
 	elements = append(elements, plr)
 
-	for {
+	fps := 0;
+	for i := 0; true; i++ {
+		frameStartTime := time.Now()
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch event.(type) {
 			case *sdl.QuitEvent:
@@ -66,5 +71,18 @@ func main() {
 			}
 		}
 		renderer.Present()
+
+		const desiredFrameDuration int64 =  (1000 / framePerSeconds)
+		delta := desiredFrameDuration - time.Since(frameStartTime).Milliseconds()
+		// fmt.Printf("delta: %d, since: %v, sleeping: %v\n", delta, time.Since(frameStartTime), time.Duration(delta * int64(time.Millisecond)))
+		beforeTime := time.Now()
+		time.Sleep(time.Duration(delta * int64(time.Millisecond)))
+		fmt.Printf("sleeping: %v, actually sleeped: %v\n", time.Duration(delta * int64(time.Millisecond)), time.Since(beforeTime));
+		if i > 0  && i % 100 == 0 {
+			fmt.Println("FPS:", fps / 100.0)
+			fps = 0
+		} else {
+			fps += int(1.0 / time.Since(frameStartTime).Seconds())
+		}
 	}
 }

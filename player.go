@@ -13,12 +13,18 @@ func newPlayer(renderer *sdl.Renderer) *element {
 		active: true,
 	}
 
-	sr, err := newSpriteRenderer(renderer, "sprites/TempleRun/Idle__000.png", player)
+	sr, err := newSpriteRenderer(player, renderer, "sprites/TempleRun/Idle__000.png")
+	if err != nil {
+		panic("Error creating sprite renderer")
+	}
+
+	km, err := newKeyboardMover(player, 2.0)
 	if err != nil {
 		panic("Error creating sprite renderer")
 	}
 
 	player.addComponent(sr)
+	player.addComponent(km)
 
 	return player
 }

@@ -17,7 +17,7 @@ type spriteRenderer struct {
 	container *element
 }
 
-func newSpriteRenderer(renderer *sdl.Renderer, imgPath string, container *element) (*spriteRenderer, error) {
+func newSpriteRenderer(container *element, renderer *sdl.Renderer, imgPath string) (*spriteRenderer, error) {
 	sr := &spriteRenderer{container: container}
 
 	img, err := img.Load(imgPath)
