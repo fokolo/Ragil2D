@@ -6,6 +6,10 @@ import (
 	"github.com/veandco/go-sdl2/sdl"
 )
 
+const (
+	gravity float64 = 0.2
+)
+
 type moveable struct {
 	container *element
 	maxVelocity float64
@@ -33,10 +37,16 @@ func (mv *moveable) applyVelocity(velocity float64) float64 {
 	return velocity
 }
 
+func (mv *moveable) applyGravity(velocityY float64) float64 {
+	velocityY += gravity // fix the game delta locations all over.
+
+	return velocityY
+}
 
 func (mv *moveable) onUpdate() error {
 	mv.container.velocity.x = mv.applyVelocity(mv.container.velocity.x)
 	mv.container.velocity.y = mv.applyVelocity(mv.container.velocity.y)
+	mv.container.velocity.y = mv.applyGravity(mv.container.velocity.y)
 
 	mv.container.position.x += gameDelta * mv.container.velocity.x
 	mv.container.position.y += gameDelta * mv.container.velocity.y

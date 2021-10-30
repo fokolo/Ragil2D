@@ -6,9 +6,9 @@ import (
 
 
 func newPlayer(renderer *sdl.Renderer) *element {
-	collisionCircles := []circle{{vector{0,screenHeight}, 30}, {vector{screenWidth,screenHeight}, 30}}
+	collisionCircles := []circle{{vector{100,500}, 30}, {vector{200,400}, 30}, {vector{500,300}, 30}, {vector{600,100}, 30}, }
 	player := &element{
-		position: vector{x: 700, y: 550},
+		position: vector{x: 350, y: 250},
 		radius: 40,
 		scale: 5,
 		active: true,
@@ -25,7 +25,7 @@ func newPlayer(renderer *sdl.Renderer) *element {
 		panic("Error creating keyboard mover")
 	}
 
-	mv, err := newMoveable(player, 5.0, 0.05)
+	mv, err := newMoveable(player, 10.0, 0.05)
 	if err != nil {
 		panic("Error creating movable")
 	}

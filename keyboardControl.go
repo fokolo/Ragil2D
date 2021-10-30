@@ -32,7 +32,7 @@ func (km *keyboardMover) onUpdate() error {
 	}
 
 	if keys[sdl.SCANCODE_SPACE] == 1 {
-		km.container.addVelocity(vector{y: -50})
+		km.container.addVelocity(vector{y: -150})
 	}
 
 	return nil
