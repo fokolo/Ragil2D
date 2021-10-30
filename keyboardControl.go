@@ -6,10 +6,10 @@ import (
 
 type keyboardMover struct {
 	container *element
-	speed float32
+	speed float64
 }
 
-func newKeyboardMover(container *element, speed float32) (*keyboardMover, error) {
+func newKeyboardMover(container *element, speed float64) (*keyboardMover, error) {
 	km := &keyboardMover{container: container, speed: speed}
 
 	return km, nil
@@ -24,11 +24,11 @@ func (km *keyboardMover) onUpdate() error {
 	keys := sdl.GetKeyboardState()
 
 	if keys[sdl.SCANCODE_LEFT] == 1 {
-		km.container.x -= int32(km.speed)
+		km.container.addVelocity(vector{x: -km.speed})
 	}
 
 	if keys[sdl.SCANCODE_RIGHT] == 1 {
-		km.container.x += int32(km.speed)
+		km.container.addVelocity(vector{x: km.speed})
 	}
 
 	return nil

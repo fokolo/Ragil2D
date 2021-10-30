@@ -11,10 +11,13 @@ const (
 	screenWidth  = 800
 	screenHeight = 600
 
-	framePerSeconds = 60
+	targetTicksPerSecond = 60
 )
 
+var gameDelta float64;
+
 func main() {
+	fmt.Println("Starting...")
 	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil {
 		fmt.Println("initializing SDL:", err)
 		return
@@ -43,7 +46,6 @@ func main() {
 	plr := newPlayer(renderer)
 	elements = append(elements, plr)
 
-	fps := 0;
 	for i := 0; true; i++ {
 		frameStartTime := time.Now()
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
@@ -72,17 +74,6 @@ func main() {
 		}
 		renderer.Present()
 
-		const desiredFrameDuration int64 =  (1000 / framePerSeconds)
-		delta := desiredFrameDuration - time.Since(frameStartTime).Milliseconds()
-		// fmt.Printf("delta: %d, since: %v, sleeping: %v\n", delta, time.Since(frameStartTime), time.Duration(delta * int64(time.Millisecond)))
-		beforeTime := time.Now()
-		time.Sleep(time.Duration(delta * int64(time.Millisecond)))
-		fmt.Printf("sleeping: %v, actually sleeped: %v\n", time.Duration(delta * int64(time.Millisecond)), time.Since(beforeTime));
-		if i > 0  && i % 100 == 0 {
-			fmt.Println("FPS:", fps / 100.0)
-			fps = 0
-		} else {
-			fps += int(1.0 / time.Since(frameStartTime).Seconds())
-		}
+		gameDelta = time.Since(frameStartTime).Seconds() * targetTicksPerSecond
 	}
 }

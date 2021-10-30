@@ -34,12 +34,14 @@ func newSpriteRenderer(container *element, renderer *sdl.Renderer, imgPath strin
 	return sr, nil
 }
 
-
 func (sr *spriteRenderer) onDraw(renderer *sdl.Renderer) error {
+	width := spriteWidth/sr.container.scale
+	height := spriteHeight/sr.container.scale
+
 	renderer.Copy(sr.texture,
 		&sdl.Rect{X: 0, Y: 0, W: spriteWidth, H: spriteHeight},
-		&sdl.Rect{X: sr.container.x, Y: sr.container.y, W: spriteWidth/sr.container.scale, H: spriteHeight/sr.container.scale})
-
+		&sdl.Rect{X: int32(sr.container.position.x) - (width / 2), Y: int32(sr.container.position.y) - (height / 2), W: width, H: height})
+		
 	return nil
 }
 

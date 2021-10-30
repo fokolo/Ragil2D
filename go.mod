@@ -1,4 +1,4 @@
-module ragil2d
+module main
 
 go 1.17
 
