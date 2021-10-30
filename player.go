@@ -25,7 +25,7 @@ func newPlayer(renderer *sdl.Renderer) *element {
 		panic("Error creating keyboard mover")
 	}
 
-	mv, err := newMoveable(player, 5.0, 0.2)
+	mv, err := newMoveable(player, 5.0, 0.05)
 	if err != nil {
 		panic("Error creating movable")
 	}

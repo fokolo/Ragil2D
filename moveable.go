@@ -28,6 +28,7 @@ func (mv *moveable) applyVelocity(velocity float64) float64 {
 	} else {
 		velocity = math.Min(velocity, mv.maxVelocity)
 	}
+	velocity *= 1 - gameDelta * mv.drag // fix the game delta locations all over.
 
 	return velocity
 }
