@@ -33,6 +33,10 @@ func (elem *element) addVelocity(velocity vector)  {
 	elem.velocity.y += gameDelta * velocity.y
 }
 
+func (elem *element) setVelocity(velocity vector)  {
+	elem.velocity.x = velocity.x
+	elem.velocity.y = velocity.y
+}
 
 func drawCircle(renderer *sdl.Renderer, draw circle) error {
 	gfx.CircleRGBA(renderer, int32(draw.center.x), int32(draw.center.y), int32(draw.radius), 255, 0, 0, 255)

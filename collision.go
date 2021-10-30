@@ -36,8 +36,8 @@ func collides(c1, c2 circle) bool {
 func (cl *collision) onUpdate() error {
 	for _, collisionCircle := range cl.container.collisionCircles {
 		if (collides(cl.container.getCollisionCircle(), collisionCircle)) {
-			invertedVelocity := vector{x: -5 * cl.container.velocity.x, y: -5 * cl.container.velocity.y}
-			cl.container.addVelocity(invertedVelocity)
+			invertedVelocity := vector{x: -1 * cl.container.velocity.x, y: -1 * cl.container.velocity.y}
+			cl.container.setVelocity(invertedVelocity)
 		}		
 	}
 	return nil
